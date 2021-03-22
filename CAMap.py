@@ -1,11 +1,10 @@
-import folium
 import requests
 import numpy as np
 import pandas as pd
-from folium.plugins import HeatMap
 
 
 def getLocation(text):
+    text = '汕头市金平区' + text
     url = "http://api.map.baidu.com/geocoding/v3/"
     payload = {
         'output': 'json',
@@ -19,6 +18,10 @@ def getLocation(text):
 
 
 def main():
-    data = pd.read_excel('/mnt/c/Users/HP/Desktop/address.xlsx')
+    data = pd.read_excel('/mnt/c/Users/HP/Desktop/ca.xlsx')
+    data = data[data['pre_address'].notna()]
     data['location'] = data['pre_address'].apply(getLocation)
-    data.to_excel('/home/yangzake/OI/ca_final.xlsx', index=False)
+    data.to_excel('/mnt/c/Users/HP/Desktop/ca_final.xlsx', index=False)
+
+
+main()
